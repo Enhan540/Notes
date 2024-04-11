@@ -82,60 +82,53 @@ Can either have linked implementations (nodes) or circular array.
         int frontIndex;
         int backIndex;
         boolean integrityOK;
-        final int DEFAULT_CAPACITY = 50;
-        final int MAX_CAP = 10000;
+        final static int DEFAULT_CAPACITY = 50;
+        final static int MAX_CAP = 10000;
 
         public CircularArrayQueue() {
-            this(DEFAULT_CAP);
+            this(DEFAULT_CAPACITY);
         }
 
         public CircularArrayQueue(int capacity) {
             if (capacity > MAX_CAP) {
-                throw new RuntimeException("Size exceeds max.");
-            } else {
-                integrityOK = false;
-                @SuppressWarning("unchecked")
-                T[] tempQueue = (T[]) new Object[capacity + 1];
-                queue = tempQueue;
-                frontIndex = 0;
-                backIndex = 0;
-                integrityOK = true;
+               throw new RuntimeException("Size exceeds max.");
+           } else {
+               integrityOK = false;
+               @SuppressWarnings("unchecked")
+               T[] tempQueue = (T[]) new Object[capacity + 1];
+               queue = tempQueue;
+               frontIndex = 0;
+               backIndex = capacity;
+               integrityOK = true;
             }
         }
 
         private void checkIntegrity() {
             if (integrityOK == false) {
                 throw new IllegalStateException("Queue is corrupt.");
-            }
-        }
+           }
+       }
 
         public void enqueue(T entry) {
             checkIntegrity();
-            if (queue[frontIndex] == null) {
-                queue[frontIndex] = entry;
-            } else {
-                if (frontIndex == (backIndex + 2) % queue.length) {
-                    throw new IllegalStateException("Queue is full.");
-                }
-                queue[backIndex] = entry;
-            }
             backIndex = (backIndex + 1) % queue.length;
+            queue[backIndex] = entry;
         }
         public T dequeue() {
-            checkIntegrity();
+            checkIntegrity ();
             if (isEmpty()) {
                 throw new IllegalStateException("Queue is empty.");
             }
             T result = queue[frontIndex];
             queue[frontIndex] = null;
-            (frontIndex + 1) % queue.length;
+            frontIndex = (frontIndex + 1) % queue.length;
             return result;
         }
-        
+    
         public T getFront() {
             return queue[frontIndex];
         }
-        
+    
         public boolean isEmpty() {
             checkIntegrity();
             return frontIndex == ((backIndex + 1) % queue.length);
@@ -146,7 +139,6 @@ Can either have linked implementations (nodes) or circular array.
                 dequeue();
             }
         }
-
     }
     ```
 
@@ -182,21 +174,109 @@ void clear();
 
 
 ### List
+- Similar to bag, but order can be implemented
+- Items have position; typically ignore index 0 if using array
+- Should have no gaps between entries; should shift to make room or fill gaps when adding/removing
+
+Interface Methods:
+```
+void add(T entry);
+void add(int position, T entry);
+T remove(int position);
+void clear();
+T replace(int position, T entry);
+T getEntry(int position);
+T[] toArray();
+boolean contains(T entry);
+int getLength();
+boolean isEmpty();
+```
+
+##### Implementations
+- Array
+- Linked List
+
 
 ### Dictionary
 
 ### Tree
 
-#### Binary Search Tree
+- Binary Tree
+    - Traversals
+        1) Inorder      -> LNR
+        2) Preorder     -> NLR
+        3) Postorder    -> LRN
 
+#### Binary Search Tree
+- Given a root, the left child should have a lower value than the root and the right child should have a greater/equal value compared to the root value.
+- When adding a node, go through the tree depending on its value:
+    - if newNode < rootNode, go to left subtree;
+    - else, go to right subtree;
+    - repeat until reach a null rootnode, where the newNode takes that spot
 #### Heap
+- Max Heap
+    - Root node of a max heap should be greater than all descendants
+    - when adding, add in a manner that it keeps the max heap as a complete binary tree
+    <blockquote>
+    Using array to represent a heap:
+
+        - Root = n;
+        - LeftChild = 2n;
+        - RightChild = 2n + 1;
+    </blockquote>
+    
+
 
 ---
 
 ## Other Concepts
 
 ### Recursion
+- Needs base case
+- function calls itself until it reaches its base case
+    - it then will begin returning values to the instance of the function that it was called from
 
 ### Iterators
 
-### Hashing 
+### Hashing
+- technique that determines an index into a table using only an entry's search key
+- Hash code = integer given by a function
+- Hash index = hashCode() % table.length;
+    - include check for when the hashIndex is < 0, where you would add hashTable.length to the hashIndex
+#### Collisions
+When multiple search keys map to the same hashIndex, a collision occurs, which we must handle.
+
+##### Open addressing w/ Linear Probing
+- method of handling collisions by probing for available indexes after the given hashIndex for the new search key to be put into
+- Pseudocode:
+```
+probe(int index, K searchKey) {
+    while (key not found && currentIndex is not empty) {
+        if (currentIndex is not AVAILABLE) {
+            if (searchKey is the same as key in currentIndex) {
+                key is found;
+            } else {
+                index = next index;
+            }
+        } else {
+            if (availableIndex not recorded yet) {
+                save this index as the earliest available index;
+                index = next index;
+            }
+        }
+    }
+    if (key was found or no index was AVAILABLE) {
+        return recorded index;
+    } else {
+        return lastAvailableIndex;
+    }
+}
+```
+##### Quadratic probing
+- Uses indices k, k + 1, k + 4, k + 9;
+    - k + j<sup>2</sup> for as many j's needed
+##### Double Hashing
+- Uses two hashing functions to probe
+- Dependent on search key
+- Have nonzero number
+- Takes first hashIndex and increments by the value of the second hash function
