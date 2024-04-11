@@ -64,9 +64,18 @@ Code To Do These Traversals
 - Start with leaf nodes:
 
 ### Code
-	BinaryTreeInterface<String> dTRee = new BinaryTree<>();
-	/**"D" is the node of dTree, null (2) is its left child, and null (3) is its right child. */
-	dTree.setTree("D", null, null);
+```
+BinaryTreeInterface<String> dTRee = new BinaryTree<>();
+/**"D" is the node of dTree, null (2) is its left child, and null (3) is its right child. */
+dTree.setTree("D", null, null);
 	
-	BinaryTreeInterface<String> aTRee = new BinaryTree<>();
-	dTree.setTree("A", bTree, cTree);
+BinaryTreeInterface<String> aTRee = new BinaryTree<>();
+dTree.setTree("A", bTree, cTree);
+```
+
+### Expression Trees
+Algorithm evaluate(expressionTree)
+
+if (expressionTree *is empty*) {
+	
+}
