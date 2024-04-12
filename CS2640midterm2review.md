@@ -173,7 +173,22 @@ while2:	lb	$t2, ($t0)
 	addi	$t1, $t1, 1
 	b	while2
 endw2:
+	lw	$ra, ($sp)
+	lw	$t0, 4($sp)
+	lw	$t1, 8($sp)
 
+malloc:
+	#Assuming number of bytes is in $a0
+	addiu	$sp, $sp, -4
+	lw	$a0, ($sp)
+	addi	$a0, $a0, 3
+	srl	$a0, $a0, 2
+	sll	$a0, $a0, 2
+	li	$v0, 9
+	syscall
+	lw	$a0, ($sp)
+	addiu	$sp, $sp, 4
+	#B.A. in $v0
 ```
 
 ## Constructing:
@@ -185,8 +200,21 @@ endw2:
 ### Arrays
 - Creating on:
 	- In data segment
+		```
+			.data
+		array	.word	0:20
+		array2	.word	1,2,3,4,5
+		```
 	- On heap
+		```
+		li	$a0, $t0	#Assume $t0 is number of bytes and is a multiple of 4
+		li	$v0, 9
+		syscall
+		```
 	- On stack segment
+		```
+		addiu	$sp, $sp, -$t0	#Assume $t0 is number of bytes and is a multiple of 4
+		```
 - Accessing
 	- Linear access
 
