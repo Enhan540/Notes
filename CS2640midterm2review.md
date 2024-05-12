@@ -64,10 +64,67 @@ Three Instruction Formats:
 	- ex: Java Virtual Machine
 
 ## Instruction Set Architectures
-- Encoding/Decoding
+- Encoding
+	- Determine the type of instruction and opCode
+	- Write the instruction into bits following the instruction's format
+	- Translate everything into hex
+	> addiu	$t0, $t1, 1
+	> 
+	> &nbsp;
+	> 
+	> addiu follows the I instruction format and has an opCode of 9
+	> 
+	> &nbsp;
+	> 
+	> I format: 
+	> &nbsp;
+	> 
+	>   6bit   5bit   5bit     16bit
+	> &nbsp;
+	> 
+	> |  op  |  rs  |  rt  |    imm    |
+	> &nbsp;
+	> 
+	> opCode = 9 -> 1001
+	> &nbsp;
+	> 
+	> addiu		rd, rs, imm
+	> &nbsp;
+	> 
+	> rs = $t1 = 9 -> 1001
+	> &nbsp;
+	> 
+	> rd = $t0 = 8 -> 1000
+	> &nbsp;
+	> 
+	> imm = 1 -> 0...01
+	> 
+	> &nbsp;
+	> 
+	> Encoding: 001001 | 01001 | 01000 | 0000000000000001 |
+	> 
+	> &nbsp;
+	> 
+	> In Hex: 0010 | 0101 | 1001 | 0100 | 0000 | 0000 | 0000 | 0001 | = 25980001
+- Decoding
+	- Check the opCode (in hex) and the function code (if there is one) to identify the instruction
+		- Do so by changing the hex code into binary to see the first 6 bits
+	- Then figure out what registers are being used
 
 ## Addressing Modes
-- Type of Machines, Memory Accesses
+- Type of Machines: different machines use varying number of address registers, memory registers, or both in the instructions
+
+- Memory Accesses
+	- Calculate the number of memory accesses in portion of code:
+		- Data
+			- Add one for each time memory is read or written
+			- LD	R1, A
+				- 1 memory read: A to Register 1
+		- Instruction
+			- At least one since the instruction must be grabbed
+			- If there are any memory mentioned, add one since it is an address
+			- LD	R1, A
+				- 1 instruction + 1 memory address = 2
 
 ## Assembly Instructions
 - I/O
@@ -217,11 +274,16 @@ malloc:
 		```
 - Accessing
 	- Linear access
-
 		`
 		base address + 4 = next index for array [CHANGE TO + 1 FOR BYTE]
 		`
 	- 2-D Arrays
+		- create a matrix of numOfRow*numOfCol
+		- matrix[row][col]
+		- calculating effective offset:
+			- matrix[t0][t1]
+			- offset = (t0 * numOfCol * t1) * 4
+
 ## MIPS Procedure
 - Call/return - jal proc/jr $ra
 - Parameters passing via a-registers
