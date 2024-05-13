@@ -119,7 +119,18 @@ public void addToBack(T entry);
  * Removes and returns the entry at the front/back of deque
  * @return The entry being removed.
 */
-public T removeFront();
+public T removeFront() {
+	//Throws exception if empty.
+	//Check whether frontNode is not null
+		Gets data from frontNode;
+		Clears data in front node
+		Sets frontNode as frontNode's next node
+	If frontNode is null,
+		lastNode is also null;
+	else frontNode sets previous node as null
+	return frontNode data
+}
+//Rework removeFront for removeBack;
 public T removeBack();
 
 /**
@@ -128,6 +139,22 @@ public T removeBack();
 */
 public T getFront();
 public T getBack();
+
+/**
+ * Checks whether the deque is empty.
+ * @return True if empty, false if not.
+*/
+public boolean isEmpty();
+
+
+//Inner class DoubleLinkedNode
+private class DoublyLinkedNode {
+	private T data;
+	private Node previous;
+	private Node next;
+
+	//Getters and setters for fields.
+}
 ```
 ### Priority Queue
 #### Definition:
