@@ -101,6 +101,25 @@ public void enqueue(T entry);
 public T dequeue();
 ```
 
+#### Implementations
+- Circular Array
+	- One unused index
+	```
+	frontIndex = 0;
+	backIndex = queue.length - 1;
+
+	add:
+	backIndex + 1;
+	queue[backIndex] = new entry;
+	
+	//Queue is full when:
+		(frontIndex == (backIndex + 2) % queue.length)
+
+	//Queue is empty when:
+		(frontIndex == (backIndex + 1) % queue.length)
+	```
+- Circular Linked List
+
 ### Deque
 #### Definition:
 - double-ended queue
@@ -159,7 +178,83 @@ private class DoublyLinkedNode {
 ### Priority Queue
 #### Definition:
 - A queuelike data collection taht organizes its objects according to their priorities instead of chronologically
+#### Implementation
+- Heap
 
+## List
+#### Definition
+- A collection of objects in a specific order and having the same data type
+#### Specifications
+```
+public class List {
+	public void add(T entry);
+	public void add(T entry, int position);
+	public T remove(int position);
+	public T replace(T entry, int position);
+	public T getEntry(int position);
+	public boolean contains(T entry);
+	public int getLength();
+	public boolean isEmpty();
+	public T[] toArray();
+	public void clear();
+}
+```
+#### Implementations
+Methods:
+- Array
+- Linked
+	- Reference to first node and last node
+
+Private Methods:
+```
+/*
+ * Makes the index at the given position open while moving entries on/after the index down one.
+*/
+private void makeRoomArray(int position) {
+	//Go to the end of the list and move the last index to the index + 1
+	//Then move to the second to last index and move it to that index + 1
+	//Continue until the given position gets shifted over.
+}
+
+/*
+ * Shifts entries after the given position index back to fill the gap.
+*/
+private void removeGapArray(int position) {
+	//Start at the index after the given position and shift it back; continue with the next index until the last entry is shifted back
+}
+```
+
+## Recursion
+#### Definition
+- problem-solving process that breaks down a problem into identical but smaller problems
+#### Time Efficienccy:
+> O(n)
+#### Requirements
+- Calls itself (recursive call)
+- Has a base case
+- Must be given an input value
+
+> Recursive methods part of an implementation are typically **private**
+```
+public void display() {
+	displayArray(0, numOfEntries - 1);
+}
+
+private void displayArray(int start, int last) {
+	System.out.println(bag[first]);
+	if (first <= last) {
+		displayArray(first + 1, last);
+	}
+}
+```
+#### Activation Record
+Each recursive call generates a record of its activation
+- keeps track of when the recursive method is called and where it should return to
+- works almost like a stack:
+	- each recursive call stacks on top of one another and tells where to return back to after finding its base case/finishing its recursive call
+#### Tail Recursion
+- tail recursion refers to the recursive call being the last action performed by the recursive method
+	- should change to iteration/looping since it's more memory efficient
 ## Trees
 
 ### Definitions

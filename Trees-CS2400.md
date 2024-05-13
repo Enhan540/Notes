@@ -63,7 +63,6 @@ Code To Do These Traversals
 ## Building a Binary Tree
 - Start with leaf nodes:
 
-### Code
 ```
 BinaryTreeInterface<String> dTRee = new BinaryTree<>();
 /**"D" is the node of dTree, null (2) is its left child, and null (3) is its right child. */
