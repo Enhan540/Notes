@@ -258,9 +258,27 @@ Each recursive call generates a record of its activation
 ## Hashing and Searching
 
 ## Trees
-
 #### Definitions
-- set of nodes connected by edges that indicate 
+- set of nodes connected by edges that indicate the relationships among the nodes
+
+#### Specifications for All Trees
+```
+public interface TreeInterface<T> {
+	public T getRootData();
+	public int getHeight();
+	public int getNumberOfNodes();
+	public boolean isEmpty();
+	public void clear();
+}
+```
+```
+public interface TreeIteratorInterface<T>{
+	public Iterator<T> getPreorderIterator();
+	public Iterator<T> getPostorderIterator();
+	public Iterator<T> getInorderIterator();
+	public Iterator<T> getLevelOrderIterator();
+}
+```
 
 ### Binary Trees
 - Each node can have a maximum of two children.
@@ -273,6 +291,40 @@ Each recursive call generates a record of its activation
 	- Begin at root and visits nodes one level at a time
 ##### General Tree Traversals
 - All the same, but inorder is not recommended
+#### Specification/Implementation
+```
+public interface BinaryTreeInterface<T> extends TreeInterface<T>, TreeIteratorInterface<T> {
+	/*
+	 * Sets the root of this tree to contain the given object
+	 * @param rootData The object to be put into the root.
+	*/
+	public void setRootData(T rootData);
+	
+	/*
+	 * Set's this binary tree to a new binary tree
+	 * @param rootData The object in the tree's root
+	 * @param leftTree The left subtree of this binary tree.
+	 *@param rightTree The right subtree of this binary tree.
+	*/
+	public void setTree(T rootData, BinaryTreeInterface<T> leftTree,  BinaryTreeInterface<T> rightTree);
+}
+```
+Uses binary node with data portion and references to left/right subtrees
+```
+public BinaryNode() {
+	this(null);
+}
+
+public BinaryNode(T dataPortion) {
+	this(dataPortion, null, null);
+}
+
+public BinaryNode(T dataPortion, BinaryNode<T> leftSubTree, BinaryNode<T> rightSubTree) {
+	data = dataPortion;
+	leftChild = leftSubTree;
+	rightChild = rightSubTree;
+}
+```
 #### Applications
 ##### Expression Trees
 - With inorder form, the left operand is sthe left child, the operator is the parent node, and the right operand is the right child.
@@ -286,28 +338,7 @@ Each recursive call generates a record of its activation
 - The node's data is less than all the data in the right subtree
 ###### Efficiency for Binary Search Tree
 - O(h), where h is the height of the tree
-##### Specification/Implementation
-```
-public interface BinaryTreeInterface<T> extends TreeInterface<T>, TreeIteratorInterface<T> {
-	
-}
-```
-Uses binary node with data portion and references to left/right subtrees
-```
-public BinaryNode() {
-	this(null);
-}
 
-pubblic BinaryNode(T dataPortion) {
-	this(dataPortion, null, null);
-}
-
-public BinaryNode(T dataPortion, BinaryNode<T> leftSubTree, BinaryNode<T> rightSubTree) {
-	data = dataPortion;
-	leftChild = leftSubTree;
-	rightChild = rightSubTree;
-}
-```
 ##### Heap
 - complete binary tree whose nodes contain Comparable objects and are organized in a certain way
 	- maxheap = largest is at the root node
@@ -315,3 +346,76 @@ public BinaryNode(T dataPortion, BinaryNode<T> leftSubTree, BinaryNode<T> rightS
 
 ## Graphs
 - collection of distinct vertices and distinct edges
+
+## ADT Definitions
+1. Bag
+	- collection of objects of the same type with no order and allows duplicates
+2. Stack
+	- collection of objects in reverse chronological order
+3. Queue
+	- collection of objects in chronological order
+4. Deque
+	- double-sided queue
+5. Priority Queue
+	- collection of objects ordered by an unspecified priority
+6. Lists
+	- collection of objects of the same type in a specific order
+7. Dictionary
+	- a collection of entries which are are stored/retrieved according to their search-key values
+8. Trees
+	- a collection of nodes connected by edges that denote the relationship among the nodes
+9. Graphs
+	- collection of distinct vertices and edges
+
+## Quiz/Midterm Questions
+
+### Quiz 3
+1. An implementation of an ADT with a programming language is called a/an:
+	- data structure
+	- abstract data type
+	- collection
+	- primitive
+3. Show the code to create a groceryBag of the type BagInterface that can be used to store grocery items using their names, eg. "soup", "eggs", ...etc. and add a few items into it. You can assume there exists a ArrayBag implementation for thei BagInterface that you can use.
+4. Write a class method removeAll that can remove all specific items from any type of bag. For example: removeAll(fruitBag, "apple"); //remove all "apple" from the fruitBag.
+
+### Quiz 4
+5. Show the implementation of the method that behaves like add named addEnd in LinkedBag. This method will add a new entry to the end of the chain instead to the beginning. Node is an inner class.
+
+### Quiz 5
+1. You should express the complexity of an algorithm in terms of its
+- execution time
+- space requirements
+- problem size
+- overall complexity
+3. Order the following growth rates from smallest to largest: n^2, n!, n, log, n, 2^n, n, log n
+5. What is postfix expression for the infix expression:	w + x * y / z
+6. Show the pseudocode to evaluate a prefix expression using a stack. Hints: scan the expression from the last token;
+- \+ a b
+- \+ a * b c
+- \+ w / * y z
+
+### Quiz 6
+4. Show the implementation of the constructor, enqueue and dequeue methods in the class ArrayQueue.
+```
+public final class ArrayQueue<T> implements QueueInterface<T> {
+	private final static int DEFAULT_SIZE = 64;
+	private int front, rear, entries;
+	private T[] queue;
+
+	public void enqueue(T newEntry);
+	public T dequeue();
+}
+```
+- a) No arg constructor
+- b) enqueue; throw RuntimeException when full
+- c) dequeue; throw RuntimeException when empty
+
+### Quiz 7
+4. The ADT dictionary is also known as
+- map
+- table
+- associative array
+### Quiz 9
+4. Draw the binary tree
+	Preorder:	R Q Y Z W X
+	Inorder:	Q Y R W Z X
