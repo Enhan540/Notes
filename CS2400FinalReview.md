@@ -255,8 +255,63 @@ Each recursive call generates a record of its activation
 #### Tail Recursion
 - tail recursion refers to the recursive call being the last action performed by the recursive method
 	- should change to iteration/looping since it's more memory efficient
+## Hashing and Searching
+
 ## Trees
 
-### Definitions
-#### Tree
+#### Definitions
+- set of nodes connected by edges that indicate 
+
+### Binary Trees
+- Each node can have a maximum of two children.
+
+#### Traversals for Binary Tree
+- Preorder traversal (NLR)
+- Inorder traversal (LNR)
+- Postorder traversal (LRN)
+- Level-order traversal
+	- Begin at root and visits nodes one level at a time
+##### General Tree Traversals
+- All the same, but inorder is not recommended
+#### Applications
+##### Expression Trees
+- With inorder form, the left operand is sthe left child, the operator is the parent node, and the right operand is the right child.
+	- Operands could be their own expression tree as well
+- Evaluating:
+	- In postfix form, add each operand to a stack,
+	- when an operator appears, pop once to get right-hand operand and pop again to get left-hand operand; perform operator with operands and push result back onto stack
+##### Decision Tree
+##### Binary Search Tree
+- The node's data is greater than all the data in its left subtree
+- The node's data is less than all the data in the right subtree
+###### Efficiency for Binary Search Tree
+- O(h), where h is the height of the tree
+##### Specification/Implementation
+```
+public interface BinaryTreeInterface<T> extends TreeInterface<T>, TreeIteratorInterface<T> {
+	
+}
+```
+Uses binary node with data portion and references to left/right subtrees
+```
+public BinaryNode() {
+	this(null);
+}
+
+pubblic BinaryNode(T dataPortion) {
+	this(dataPortion, null, null);
+}
+
+public BinaryNode(T dataPortion, BinaryNode<T> leftSubTree, BinaryNode<T> rightSubTree) {
+	data = dataPortion;
+	leftChild = leftSubTree;
+	rightChild = rightSubTree;
+}
+```
+##### Heap
+- complete binary tree whose nodes contain Comparable objects and are organized in a certain way
+	- maxheap = largest is at the root node
+	- minheap- smallest is at the root node
+
+## Graphs
 - collection of distinct vertices and distinct edges
