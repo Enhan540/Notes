@@ -89,14 +89,6 @@
         - Address
         - Bus
         - Control
-### Instruction Fetch Cycle
-#### Fetch
-- PC, IR
-- Gets next instruction
-#### Decode
-- IR
-#### Execute
-- GPR, ALU, AC (All registers)
 
 ## Basic System Software Components
 - Operating System
@@ -111,3 +103,89 @@
     - loads the executable into memory and starts execution
 - Interpreter
     - a computer program that can directly execute instructions written in a programming or scripting language without requiring them to have been compiled into machine language
+
+## Instruction Set Architecture (ISA)
+#### Definition
+- abstract model of a computer
+    - everything a machine language programmer needs to know in order to program a computer
+
+### Instruction Formats and Instruction Fetching/Execution Cycles
+#### Instruction Fetch Cycle
+1. Fetch instructions
+    - PC points to memory with next instruction, which IR takes and PC increments to next instruction
+2. Decode Instruction
+    - figure out what operations to be done and addressing mode(s)
+3. Locate Operands
+    - could be in memory or in register addresses
+4. Fetch Operands
+    - if in memory, it is necessary to do a memory read
+5. Execute Operation by ALU
+6. Store Results
+    - either in memory location or register
+7. Start again from Step #1
+##### Fetch
+- PC, IR (MAR, MDR)
+##### Decode
+- IR
+##### Execute
+- GPR, ALU, AC (All registers)
+- REGS (IR, PC, MAR, MDR)
+### Machine Instructions
+- opcode field
+    - specificies operation
+- address fields
+    - either memory address or register address
+- mode field
+    - specifies the way the address field is to be interpreted
+### One, Two, Three-Address Machines
+- Address fields of an instruction may consist of one, two, or three memory/register addresses
+### Computing Number of Memory Accesses in 3-Register Address Machines
+- each instruction is one memory read
+- each memory address being used is one memory address in instruction and data read
+## Procedures
+### Register Usage
+$a0 - $a3 = parameter passing
+- If more parameters are needed, make room on the stack for the first four parameters, then add the other necessary parameters onto the stack ($sp)
+
+$v0 - $v1- return registers
+
+Procedures are marked by labels in front of the first line of that procedure
+> label1:&emsp;addiu&emsp;$sp, $sp, -4
+- Use the "jal" instruction to "call" the procedure, putting the procedure's label after "jal"
+    - jalr instruction: can be used to jump to a procedure when the address of the procedure is in a register
+- "jr $ra" instruction returns to the main method/code where the procedure was called
+    - $ra has the return location (may need to be saved if the procedure is non-leaf, or there is a procedure call inside the procedure)
+## Strings, Records, and Arrays (1/2D)
+
+## Exceptions, interrupts, I/O Interfacing and Communication
+**Exception** - event that requires a special handling by the CPU and initiates a change in the normal flow of program execution
+- Breakpoints, arithmetic overflow, traps, and interrupts are all classified as exceptions
+**Interrupt** - signal coming from I/O devices outside the CPU
+- Interrupt is generated when I/O device needs the service of the CPU
+- ISR (Interrupt Service Routine) - processes the interrupts from I/O devices and provides the requested services
+    - a.k.a. trap handler
+### Coprocessor Zero
+Method to interrupt currently running programs
+- contains number of specialized registers that can be accessed at the assembly language level for exception handling
+    - SPIM's Displayed Registers
+        - EPC: Coprocessor Register 14 (Exception Program Counter)
+        - Cause: Coprocessor Register 13
+        - BadVAddress: Coprocessor Register 8
+        - Status: Coprocessor Register 12
+    - New instructions
+        - mfc0: move from coprocessor 0
+            > mfco &emsp; $k0, $13&emsp;#$k0 has contents of Cause register
+        - mtc0: move to coprocessor 0
+
+#### Enabling Keyboard Interrupt
+Receiver Control - 0xffff0000
+- Interrupt bit - 2nd to last bit
+- Ready bit - last bit
+
+Receiver Data - 0xffff0004
+
+Transmitter Control - 0xffff0008
+- Interrupt bit - 2nd to last bit
+- Ready bit - last bit
+
+Transmitter Data - 0xffff000c
