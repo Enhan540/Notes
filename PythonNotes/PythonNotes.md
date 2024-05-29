@@ -112,3 +112,11 @@ Output:
 ```
 Hi Mark, you are 19 years old. You live in Upland.
 ```
+##### Printing On Only One Line
+If you want to only keep everything on one line with multiple print commands, use the 'end = ""' parameter. Can be used with f-string prints.
+```
+print("Hi ", end="")
+print("there")
+```
+#### Floating Point Numbers
+Float numbers are numbers that have a fractional/decimal point. Operations work the same on float point numbers as integers.
