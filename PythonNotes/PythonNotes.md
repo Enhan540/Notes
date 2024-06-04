@@ -3,13 +3,18 @@
 ## Table of Contents
 Intro to Programming
 
-- [Part 1](#p1-1)
-- Part 2
-- Part 3
-- Part 4
-- Part 5
-- Part 6
-- Part 7
+- [Part 1](#part-1)
+	- Section 1: [Getting Started](#getting-started)
+	- Section 2: [Information from the User](#getting-user-input)
+	- Section 3: [More About Variables](#variables)
+	- Section 4: [Arithmetic Operations](#arithmetic-operations)
+	- Section 5: [Conditional Statements](#conditional-statements)
+- [Part 2](#part-2)
+- [Part 3](#part-3)
+- [Part 4](#part-4)
+- [Part 5](#part-5)
+- [Part 6](#part-6)
+- [Part 7](#part-7)
 
 Advanced Courses in Programming
 
@@ -21,7 +26,8 @@ Advanced Courses in Programming
 - Part 13
 - Part 14
 
-## <a name="p1"></a>Part 1
+## Part 1
+### Getting Started
 Programs consist of commands
 - ex: **'print'** command
 ```
@@ -292,3 +298,15 @@ The lines indented after the conditional will run if age is greater than or equa
 A boolean value is a result of some sort of condition, meaning its values can be true or false.
 
 A boolean expression is some sort of expression that gives a boolean value as a result, typically found in conditional statements.
+
+## Part 2
+
+## Part 3
+
+## Part 4
+
+## Part 5
+
+## Part 6
+
+## Part 7
