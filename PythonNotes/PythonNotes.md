@@ -1,6 +1,27 @@
 # Python Notes
 
-## Part 1
+## Table of Contents
+Intro to Programming
+
+- [Part 1](#p1-1)
+- Part 2
+- Part 3
+- Part 4
+- Part 5
+- Part 6
+- Part 7
+
+Advanced Courses in Programming
+
+- Part 8
+- Part 9
+- Part 10
+- Part 11
+- Part 12
+- Part 13
+- Part 14
+
+## <a name="p1"></a>Part 1
 Programs consist of commands
 - ex: **'print'** command
 ```
@@ -156,6 +177,11 @@ Output:
 ```
 / operator 1.5
 // operator 1
+```
+
+Python doesn't have the sqaure root operation by default. To use that sqrt() function, you must import it using the import command:
+```
+from math import sqrt
 ```
 
 #### Reading Numbers as Input
