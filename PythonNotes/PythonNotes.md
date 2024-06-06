@@ -301,6 +301,86 @@ A boolean expression is some sort of expression that gives a boolean value as a 
 
 ## Part 2
 
+### Programming Terminology
+#### Statements
+A **statement** refers to a part of a program that executes something. 
+
+Examples:
+> print("Hi!")
+>
+> number = 2
+
+Sometimes, a statement can take up multiple lines of code. It can contain other statements, for example:
+```
+if name == "Anna":
+	print("Hi!")
+	number = 2
+```
+
+There are two statements in the prior example:
+- A print statement and an assignment statement inside a conditional statement.
+
+#### Block
+A **block** is a group of consecutive statements on the same level in a program. An example of a block of code would be the statements that run when a conditional statement is true.
+
+Example:
+```
+if age > 17:
+    # beginning of the conditional block
+    print("You are of age!")
+    age = age + 1
+    print("You are now one year older...")
+    # end of the conditional block
+
+print("This here belongs to another block")
+```
+Python blocks are shown when they are indented the same amount of whitespace.
+On top of that, main code of the program must not be indented or it will not execute.
+
+#### Expressions
+An **expression** is a bit of code that results in a determined data type. 
+The expression will be evaluated when the program is executed, and the expression will be turned into a value that the program will be used.
+
+Examples:
+> 2 + 3 + 4
+> 
+> "abc" + "de"
+>
+> 11 / 2
+>
+> 2 * 5 > 9
+
+Expressions can be put into a variable since they result in a value of some type. And, simple expressions can be combined into more complicated expressions.
+```
+y = 3 * x - 8 ** x
+```
+
+#### Functions
+A **function** executes some functionality. Functions can receive arguments which the function will process and/or execute the function with. 
+
+For a function to work, it needs to be called in the main code. To call a function, the function needs to be mentioned with any arguments necessary. For example, the print command is called when the print() line is put into the code and given an argument. The following code calls the print function with the argument "this is an argument":
+```
+print("this is an argument")
+```
+
+Some functions return a value. The function processes any arguments given to the function and produces a result, which the funtion would then return that result to the main function to use. An example would be the input command, which returns the user's input as a string to the main code. The return value of a function is usually stored in a variable so the data can be used later.
+
+#### Data Type
+Any value has a specific **data type**. The data type is determined by what type of value the value is. In the following example, the variable `name` has the data type of a `str`, or a string, and the variable `result` has the data type of an `int`.
+```
+name = "Joe"
+result = 100
+```
+
+The `type` command can show the data type of any expression:
+```
+print(type("Anna"))
+print(type(100))
+```
+> <class 'str'>
+>
+> <class 'int'>
+
 ## Part 3
 
 ## Part 4
