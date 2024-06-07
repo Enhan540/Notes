@@ -381,6 +381,60 @@ print(type(100))
 >
 > <class 'int'>
 
+#### Syntax
+**Syntax** of a programming language refers to how the code should be written.
+Each programming language has a different syntax.
+
+If the syntax isn't followed, errors/exceptions can occur.
+
+#### Debugging
+A **bug** occurs when something doesn't work the way it is supposed to. They can happen due to many different things. So **debugging** is looking for these bugs and fixing them. 
+
+### More Conditionals
+We can make conditional statements more compact instead of having many different if statements. For example, the following code can be easily compacted from:
+```
+number = int(input("Please type in a number: "))
+
+if number < 0:
+    print("The number is negative")
+
+if number >= 0:
+    print("The number is positive or zero")
+```
+To this longer and single if statement:
+```
+number = int(input("Please type in a number: "))
+
+if number < 0:
+    print("The number is negative")
+else:
+    print("The number is positive or zero")
+```
+The newly compacted code utilizes the `else` statement, which runs when the none of the if statement(s) are run within the same if statement block. An `else` statement cannot be used unless there is at least one if-statement used.
+
+If statements can have branches of other if statements. This allows for other conditions to be checked when a given condition is found to be falsed. To have other if-statements, the `elif` command, short for "else if", is used. 
+
+For example, the following code checks whether a given number is positive, negative, or zero by making use of the elif statement.
+```
+number = int(input("Input any number."))
+
+if number < 0:
+	print("The number is negative.")
+elif number > 0:
+	print("The number is positive.")
+else:
+	print("The number is zero.")
+```
+There are two conditionals to be checked and an else statement to be executed if none of the conditional statements are executed. 
+- The if-statement conditional is checked first. 
+	- If that condition is true, then that if-statements block of code is run and skips all the other conditionals and else statements. 
+	- If not, it checks the next conditional statement, the elif. 
+- The same routine applies to the elif statement. 
+	- Run the code if the conditional is true and skips the rest of the other if/else statements. 
+	- If false, then it would check the next elif statement if it exists or the else statement if no other elif statement. 
+- If none of the other if-statements are executed, the else statement executes.
+
+**SIDENOTE**: Strings can be compared to find which string comes before another alphabetically.
 ## Part 3
 
 ## Part 4
