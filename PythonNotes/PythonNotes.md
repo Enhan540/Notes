@@ -10,7 +10,12 @@ Intro to Programming
 	- Section 4: [Arithmetic Operations](#arithmetic-operations)
 	- Section 5: [Conditional Statements](#conditional-statements)
 - [Part 2](#part-2)
+	- Section 1: [Programming Terminology](#programming-terminology)
+	- Section 2: [More Conditionals](#more-conditionals)
+    - Section 3: [Combining Conditionals](#combining-conditionals)
+    - Section 4: [Simple Loops](#simple-loops)
 - [Part 3](#part-3)
+    - Section 1: [Loops With Conditions]
 - [Part 4](#part-4)
 - [Part 5](#part-5)
 - [Part 6](#part-6)
@@ -435,7 +440,279 @@ There are two conditionals to be checked and an else statement to be executed if
 - If none of the other if-statements are executed, the else statement executes.
 
 **SIDENOTE**: Strings can be compared to find which string comes before another alphabetically.
+
+### Combining Conditionals
+To combine conditinals, the logical operators `and` and `or` are used. 
+- The `and` operator returns true when all given conditionals are also true.
+- The `or` operator returns true when at least one of the given conditinals are also true.
+
+For example, `number >= 5 and number <= 8` returns true when the value of `number` is between 5 and 8.
+
+On the other hand, `number < 5 or number > 8` returns true when `number` is either less than 5 or greater than 8.
+
+Sometimes determining when a condition is not true is important. In those cases, the `not` operator negates a condition.
+
+Example:
+```
+number = int(input("Please type in a number: "))
+if not (number >= 5 and number <= 8):
+	print("The number is not within the range of 5 to 8.")
+```
+> In this case, the code will only print if the number is NOT in the range of 5 to 8.
+
+The `and`, `or`, `not` operators are also called Boolean operators.
+
+> **Simplified combined conditions**
+>
+> The condition `x >= a and x <= b` is commonly used to check whether `x` is in the range of `a` to `b`.
+>
+> However, Python allows for another way to write this condition: `a <= x <= b`
+
+#### Combining and Chaining Conditions
+The following example uses chained conditionals to check which of the four inputted numbers is the greatest:
+```
+n1 = int(input("Number 1: "))
+n2 = int(input("Number 2: "))
+n3 = int(input("Number 3: "))
+n4 = int(input("Number 4: "))
+
+if n1 > n2 and n1 > n3 and n1 > n4:
+    greatest = n1
+elif n2 > n3 and n2 > n4:
+    greatest = n2
+elif n3 > n4:
+    greatest = n3
+else:
+    greatest = n4
+
+print(f" {greatest} is the greatest of the numbers.")
+```
+
+Example Output:
+```
+Number 1: 2
+Number 2: 4
+Number 3: 1
+Number 4: 1
+4 is the greatest of the numbers.
+```
+
+#### Nested Conditionals
+Conditionals can be nested or put into other conditionals. For example, this code checks whether a number is greater than 0, then checks whether the number is odd or even:
+```
+number = int(input("Please type in a number: "))
+
+if number > 0:
+    if number % 2 == 0:
+        print("The number is even")
+    else:
+        print("The number is odd")
+else:
+    print("The number is negative or zero")
+```
+
+Example Output:
+```
+Please type in a number: 3
+The number is odd
+
+Please type in a number: 18
+The number is even
+
+Please type in a number: -4
+The number is negative or zero
+```
+> With nested conditionals, it's important to make sure the code is indented so the right code is in the right conditional branch.
+>
+> However, nested conditionals can typically be also done with logical operators.
+
+### Simple Loops
+Another important concept used in coding is repetition, or iteration. Combined with conditionals, the form a control structure. They are called constructures because they "essentially allow you to control which lines of code get executed when." The are sometimes called *loops* because occassionally the code goes back to the front. 
+
+In this section, a simple `while` loop is introduced, which has a similar structure to the if conditional statements. 
+
+In this example, this program continues to ask the user for a number and then prints that number sqaured. It continues to do so until the number -1 is entered:
+```
+while True:
+    number = int(input("Please type in a number, -1 to quit: "))
+
+    if number == -1:
+        break
+
+    print(number ** 2)
+
+print("Thanks and bye!")
+```
+Example Output:
+```
+Please type in a number, -1 to quit: 2
+4
+Please type in a number, -1 to quit: 4
+16
+Please type in a number, -1 to quit: 10
+100
+Please type in a number, -1 to quit: -1
+Thanks and bye!
+```
+> The break command causes the code to exit the loop and continue executing the program after the while loop. 
+
+It is important with loops to always exit the loop at some point. If not, an infinite loop can be created. 
+
+In this case, the prompt is outside the loop, meaning that if the first number inputted isn't -1, then the sqaure of the number is forever printed:
+```
+number = int(input("Please type in a number, -1 to quit: "))
+while True:
+    if number == -1:
+        break
+
+    print(number ** 2)
+
+print("Thanks and bye!")
+```
+
+#### Loops and Helper Variables
+When creating a program to check a PIN number, we want the user to only have three attempts. To make this possible, we use **helper variables**.
+
+In the following example, two helper variables are used: `attempts`, which is used to track the number of times the user tries to enter the PIN, and `success`, which is a boolean variable that shows whether the user is successful in signing in. 
+```
+attempts = 0
+
+while True:
+    code = input("Please type in your PIN: ")
+    attempts += 1
+
+    if code == "1234":
+        success = True
+        break
+
+    if attempts == 3:
+        success = False
+        break
+
+    # this is printed if the code was incorrect AND there have been less than three attempts
+    print("Incorrect...try again")
+
+if success:
+    print("Correct PIN entered!")
+else:
+    print("Too many attempts...")
+```
+Example Outputs:
+```
+Please type in your PIN: 0000
+Incorrect...try again
+Please type in your PIN: 1234
+Correct PIN entered!
+```
+```
+Please type in your PIN: 0000
+Incorrect...try again
+Please type in your PIN: 9999
+Incorrect...try again
+Please type in your PIN: 4321
+Too many attempts...
+```
+The loops either exits when three attempts are used up or when the user gets the right PIN.
+
+#### Debugging Print Statements in Loops
+When using loops, it's important to make sure it's doing what it's supposed to. To check if things are going properly, print commands can be used throughout the loop and other parts of the code to see if a part of the code is either running when it's supposed to or not running.
+
+#### Concatenating Strings with the + Operator
+The above example kept count of the amount of attempts the user had. But, concatentation could keep track of all the different PIN attempts.
+
+To do so, another variable will be used called codes, which will be set to blank at first:
+```
+codes = ""
+attempts = 0
+
+while True:
+    code = input("Please type in your PIN: ")
+    attempts += 1
+    codes += code + ", "
+    # ...
+```
+The variable `codes` contains an empty string at first. However, with each iteration the string gets longer as more PIN numbers are added on to the string. 
+
 ## Part 3
+
+### Loops with Conditions
+In the last section, a simple `while True` loop was used to repeat certain parts of code. Because `True` will always return true, the loop will continue until the code specifically and explicitly breaks out of the loop.
+
+Instead, we can put a condition in the while loop so that the loop will stop itself when the condition is found to be false. A basic construction of a while loop with a condition is:
+```
+while <condition>:
+    <block>
+```
+
+The way this loop works is that each time the loops finishes, it returns to the top of the while loop and checks whether the condition is still true. If it's true, the loop will run again. If it's false, it will begin exectuing the code after the end of the while block.
+
+For example, the following code will continue to print numbers incrementing up to 10:
+```
+number = int(input("Please type a number: "))
+
+while number < 10:
+    print(number)
+    number += 1
+
+print("Execution complete.")
+```
+Once the number is inputted, the while loop checks if the given number is less than 10. If less than 10, the number will be printed then incremented up one, and the loop continues until the number is greater than or equal to 10.
+
+#### Initialisation, Condition, and Update
+Creating a loop usually includes three different steps.
+
+**Initialisation**
+This step sets up the variable(s), often called *iteration*/*iterator variables*, that will be used in the condition. Typically, this step occurs outside the loop.
+
+**Condition**
+The condition defines how long the loop will continue executing and is declared at the beginning of the while loop.
+
+**Update**
+This is the most important step in a loop, since without it, an executed loop will become an infinite loop. This step updates/changes the variables in the condition so that the loop gets closer to finishing. 
+
+If we look at the previous example, we can identify each step of creating a loop:
+
+1. Initialisation
+    ```
+    number = int(input("Please type a number: "))
+    ```
+2. Condition
+    ```
+    while number < 10
+    ```
+3. Update
+    ```
+    number += 1
+    ```
+
+Without even one of these, the loop will not work as intended.
+
+#### Writing Conditions
+Any Boolean expression or combo of such can be used as a condition. 
+
+#### Building Strings
+Earlier, the concept of building strings was introduced. The operator `+=` is also able to be used to make these strings.
+```
+words = "pride"
+words += ", prejudice"
+words += " and python"
+
+print(words)
+```
+
+This also applies to f strings.
+```
+course = "Introduction to Programming"
+grade = 4
+
+verdict = "You have received "
+verdict += f"the grade {grade} "
+verdict += f"from the course {course}"
+
+print(verdict)
+```
+
+### Working with Strings
 
 ## Part 4
 
