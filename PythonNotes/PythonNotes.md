@@ -15,7 +15,8 @@ Intro to Programming
     - Section 3: [Combining Conditionals](#combining-conditionals)
     - Section 4: [Simple Loops](#simple-loops)
 - [Part 3](#part-3)
-    - Section 1: [Loops With Conditions]
+    - Section 1: [Loops With Conditions](#loops-with-conditions)
+    - Section 2: [Working with Strings](#working-with-strings)
 - [Part 4](#part-4)
 - [Part 5](#part-5)
 - [Part 6](#part-6)
@@ -713,7 +714,175 @@ print(verdict)
 ```
 
 ### Working with Strings
+Earlier, the concept of concatenation was introduced, which allows for combining of two strings to build one using the `+` operator. 
+```
+begin = "ex"
+end = "ample"
+word = begin + end
+print(word)
+```
 
+However, the `*` operator can also be used to duplicate the string a given number of times.
+```
+word = test
+print(test*3)
+```
+Output:
+```
+testtesttest
+```
+Combining these operators, a program creating a period with n levels is possible:
+```
+n = 10 # number of layers in the pyramid
+row = "*"
+
+while n > 0:
+    print(" " * n + row)
+    row += "**"
+    n -= 1
+```
+Output:
+```
+          *
+         ***
+        *****
+       *******
+      *********
+     ***********
+    *************
+   ***************
+  *****************
+ *******************
+```
+> The `print` command in the loop prints spaces `n` times before printing the asterisk(s)
+
+#### Length and Index of a String
+The function `len` gives the number of characters in a string as an integer. If `len("hi")` were used, the integer `2` would be returned since two characters make up the string `"hi"`.
+> The number returned includes **ALL** characters, so things such as spaces and punctuation would be counted.
+
+Strings are basically just a sequence of characters, so any single character can be retrieved. Using the `[]` operator finds the character at the given index within the brackets. The *index* is the position of the character in the string starting at 0 as the first index. 
+
+Example:
+```
+string1 = "cha cha real smooth"
+print(string1[1])
+print(string1[5])
+print(string1[7])
+```
+Output:
+```
+h
+h
+ 
+```
+> The second line seems blank, but it printed out the space, which is at index 7.
+
+Since the first character is at index 0, the last character has the index of *length - 1*. So we can just find the last character of a string by: `string1[len(string1) - 1]`
+
+We can use the following program to loop through all the characters of a given string.
+```
+input_string = input("Type in a string: ")
+index = 0
+while index < len(input_string):
+    print(input_string[index])
+    index += 1
+```
+Example Output:
+```
+Please type in a string: test
+t
+e
+s
+t
+```
+
+Another way to access the characters in a string is by ***negative indexing***. The way this works the last character of the string has the index of `-1` and the second-to-last character has the index of `-2`. Using this method, the first character would have the index of the negative of the length of the string. One way to look at this is that `input_string[-1] == input_string[len(input_string) - 1]`.
+
+#### IndexError: String Index Out of Range
+If you try to access a character with an index that is not within the string's index range, an error will occur. 
+```
+input_string = input("Please type in a string: ")
+print("The tenth character: " + input_string[9])
+```
+Example:
+```
+Please type in a string: python
+
+Traceback (most recent call last):
+File "", line 1, in 
+IndexError: string index out of range
+```
+
+#### Substrings and Slices
+A **substring** of a string is a sequence of characters that forms a part of the string. For example, the word `cringe` contains the substrings `cri`, `nge`, `ring`, and many others. **Slicing** is the process of selecting substrings, and the substring is also referred to as a *slice* of a string.
+
+To take the substring of a string, you would use the notation `[a:b]`, where `a` is the beginning index of the substring and `b` is the index after the last character included in the substring. For example, if a string `trying` exists, [1,4] of that string would give `ryi`. 
+
+Another example:
+```
+input_string = "presumptious"
+
+print(input_string[0:3])
+print(input_string[4:10])
+
+# if the beginning index is left out, it defaults to 0
+print(input_string[:3])
+
+# if the end index is left out, it defaults to the length of the string
+print(input_string[4:])
+```
+Output:
+```
+pre
+umptio
+pre
+umptious
+```
+> If "half intervals" are used, `[a:] or [:b]`, either the slice starts at index `a` and includes all following characters or starts at the very beginning and takes all characters up to but not including the character at index `b`.
+
+#### Searching for Substrings
+The `in` operator can tell us if a string contains a particular substring. For example, the expression `a in b` will return true if `b` contains the substring `a`.
+Example:
+```
+input_string = "test"
+
+print("t" in input_string)
+print("x" in input_string)
+print("es" in input_string)
+print("ets" in input_string)
+```
+Output:
+```
+True
+False
+True
+False
+```
+The `in` operator only tells us if a certain substring is in a string, but nothing else. Another operator, the `find` method, can tell us where a certain substring of a string is located. Taking the substring being searched for as an argument, it either returns the first index where it is found or `-1` if the substring is not found within the string. 
+
+A sample usage of this operator is: `example_string.find("str")`
+- 'example_string' - the string being checked for a given substring.
+- `.find("str")` - method call, which takes `"str"` as the substring being located within the string.
+
+Example:
+```
+input_string = "test"
+
+print(input_string.find("t"))
+print(input_string.find("x"))
+print(input_string.find("es"))
+print(input_string.find("ets"))
+```
+Output:
+```
+0
+-1
+1
+-1
+```
+> **Function VS Method**
+> 
+> A method must be called with an object attached to it, where the object is "the entity named before the method in the method call." A function does not require an object attached to it.
 ## Part 4
 
 ## Part 5
