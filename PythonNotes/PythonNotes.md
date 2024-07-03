@@ -17,6 +17,8 @@ Intro to Programming
 - [Part 3](#part-3)
     - Section 1: [Loops With Conditions](#loops-with-conditions)
     - Section 2: [Working with Strings](#working-with-strings)
+    - Section 3: [More Loops](#more-loops)
+    - Section 4: [Defining Functions](#defining-functions)
 - [Part 4](#part-4)
 - [Part 5](#part-5)
 - [Part 6](#part-6)
@@ -883,7 +885,585 @@ Output:
 > **Function VS Method**
 > 
 > A method must be called with an object attached to it, where the object is "the entity named before the method in the method call." A function does not require an object attached to it.
+
+### More Loops
+Earlier, the `break` command was introduced when the concept of looping was first introduced. It allows the code to immediately break out of the loop. An example of when it can be used is when the program asks for an input and only stops when a specific input is given.
+
+However, the `break` command can be replaced with a condition. In the following example, two versions of a program, one with the `break` command and one without, are shown, which gives the sum of all the numbers given by the user until `-1` is given.
+```
+sum = 0
+
+while True:
+    number = int(input("Please type in a number. Type -1 to exit."))
+    if number == -1:
+        break
+    sum += number
+print(f"The sum is {sum}.")
+```
+```
+sum = 0
+number = 0
+
+while number != -1:
+    number = int(input("Please type in a number. Type -1 to exit."))
+    if number != -1:
+        sum += number
+print(f"The sum is {sum}.")
+```
+Example Output:
+```
+Please type in a number, -1 to exit: 2
+Please type in a number, -1 to exit: 4
+Please type in a number, -1 to exit: 5
+Please type in a number, -1 to exit: 3
+Please type in a number, -1 to exit: -1
+The sum is 14.
+```
+Both programs do the exact same thing, but the first method is easier, since the condition `number == -1` is only required once and the `number` variable does not need to be initialized before the loop.
+
+The `break` command can be used with another condition when creating a loop. Using the same program as before, if we add another constraint where the program stops prompting the user for another number when the sum becomes larger than 100, we can use both a condition for the loop and the `break` command.
+```
+sum = 0
+
+while sum < 100:
+    number = int(input("Please type in a number. Type -1 to exit."))
+    if number == -1:
+        break
+    sum += number
+print(f"The sum is {sum}.")
+```
+#### The 'continue' Command
+The `continue` command is another command that can change the way a loop is executed. When executed, the `continue` command jumps back to the beginning of the loop and checks the condition of the loop again. 
+
+If we modify the previous example again by making it so a number greater than or equal to 10 will not be added to the sum, and will return to the beginning of the loop. 
+```
+sum = 0
+
+while True:
+    number = int(input("Please type in a number, -1 to exit: "))
+    if number == -1:
+        break
+    if number >= 10:
+        continue
+    sum += number
+
+print (f"The sum is {sum}")
+```
+Example Output:
+```
+Please type in a number, -1 to exit: 4
+Please type in a number, -1 to exit: 7
+Please type in a number, -1 to exit: 99
+Please type in a number, -1 to exit: 5
+Please type in a number, -1 to exit: -1
+The sum is 16
+```
+#### Nested Loops
+Similarly to `if` statements, loops can be placed and nested inside other loops. 
+
+With nested loops, the `break` and `continue` commands work with the loop it is within.
+
+#### More Helper Variables with Loops
+We've used helper variables to help with iteration, increasing or decreasing every time a loop runs. The following example uses the helper variable `i`.
+```
+limit = int(input("Please type in a number: "))
+i = 0
+while i < limit:
+    print(i)
+    i += 2
+```
+Output:
+```
+Please type in a number: 8
+0
+2
+4
+6
+```
+
+If we implement a nested loop into the previous program to create a "number pyramid" based on the number given by the user, the code would look something like this:
+```
+number = int(input("Please type in a number: "))
+while number > 0:
+    i = 0
+    while i < number:
+        print(f"{i} ", end="")
+        i += 1
+    print()
+    number -= 1
+```
+Output
+```
+Please type in a number: 5
+0 1 2 3 4
+0 1 2 3
+0 1 2
+0 1
+0
+```
+> Two helper variables are used in this program: `number` and `i`. Each iteration of the loop decreases the value of `number` by 1 until it reaches 0. Inside the outer loop, the helper variable `i` is set to 0 just before the inner loop, which prints out the value of `i`, increases its value by one, and repeats until `i` is no longer less than number. 
+
+### Defining Functions
+We've used functions before, such as the `len`, `print`, and `input` functions, which are built into Python. However, it is possible to create/define your own functions.
+
+#### The Function Definition
+To use a function, it must be defined. The `def` keyword (short for define) is used when defining a function. Following the `def` keyword is the **function's name**. After the name, parentheses followed by a colon completes the heading. Then, the body, which is the part that actually is executed, follows the heading.
+
+For example, this function called `testFunction`, prints the message `This is a test function.`
+```
+def testFunction():
+    print("This is a test function.")
+```
+
+Nothing will happen until the function is called, which can be done by mentioning the name in the code:
+```
+def testFunction():
+    print("This is a test function.")
+
+testFunction()
+```
+Output:
+```
+This is a test function.
+```
+
+#### Function Arguments
+Functions usually take arguments, which may change what the functionality of the function. The `print` and `input` both take arguments to be printed.
+
+An example of a function using an argument:
+```
+def hello(target):
+    print("Hello", target)
+```
+Calling this function twice would produce the following output:
+```
+hello("Emily")
+hello("world!")
+```
+```
+Hello Emily
+Hello world!
+```
+
+If we take a look at the definition of the function, `target` is found within the parenthesis, which is normally left blank. In this case, `target` would be the function's parameter. 
+
+The parameter is used when an *argument* is passed when the function is called, which is done by calling the function with the data in the parenthesis. 
+
+In the previous function example, the `hello` function calls were given two different arguments: `Emily` and `world!` These arguments will be used by the function with the `target` parameter, which stores the argument's data.
+
+> **Arguments vs Parameters**
+> 
+> They are pretty much interchangeable, but they're slightly different. 
+> - the **argument** is the data passed *into* the function.
+> - the **parameter** is the local variable used by the function which contains the argument as data
+
+#### More Examples
+Another function using an argument is the following:
+```
+def squared(x):
+    print(f"The square of the number {x} is {x*x}")
+
+squared(2)
+sqaure(5)
+```
+Output:
+```
+The square of the number 2 is 4
+The square of the number 5 is 25
+```
 ## Part 4
+
+### More Functions
+Last section, the concept of defining and using functions was introduced.
+
+Using the `def` keyword to create the function:
+```
+def message():
+    print("This message was brought to you by a function.")
+```
+Then calling the function:
+```
+message()
+```
+Output:
+```
+This message was brought to you by a function.
+```
+
+#### Parameters and Arguments of a Function
+A function can take one or more arguments which the function will use within its code. The arguments will be put into the function's parameters, which the function will use as its local variable(s). 
+
+#### Function Calls Witihin Function Calls
+It is possible to call other functions within a function's code. In the following example, the function `greet_many_times` calls the `greet` function:
+```
+def greet(name):
+    print("Hello there,", name)
+
+def greet_many_times(name, times):
+    while times > 0:
+        greet(name)
+        times -= 1
+```
+Output:
+```
+Hello there, Emily
+Hello there, Emily
+Hello there, Emily
+```
+
+#### Return Value of a Function
+On top of taking arguments, an function can also return a value. An example is the `print` commmand, which returns the user's input. 
+
+Another is the `int` command, which takes in an argument and returns it as an integer if possible.
+
+#### Return Statement
+You can return values using the `return` keyword within the function. For example:
+```
+def my_sum(a, b):
+    return a + b
+
+result = my_sum(2, 3)
+
+print("Sum:", result)
+```
+Output
+```
+Sum: 5
+```
+> Using the `return` statement completely ends the function. Meaning no other code in the function will be run once a value is returned.
+
+Another example is:
+```
+def ask_for_name():
+    name = input("What is your name? ")
+    return name
+
+name = ask_for_name()
+print("Hello there,", name)
+```
+Output
+```
+What is your name? Anna
+Hello there, Anna
+```
+Even if there is no value to be returned, the `return` command can be used to stop the function's execution.
+
+#### Using Return Values from Functions
+Return values can already be put into variables. Since it's just like any other value, it can just be directly used as another argument, like the `print` command.
+
+Example:
+```
+def my_sum(a, b):
+    return a + b
+
+print("The sum is", my_sum(4, 6))
+```
+Another example of using the return values directly is:
+```
+def my_sum(a, b):
+    return a+b
+
+def difference(a, b):
+    return a-b
+
+result = difference(my_sum(5, 2), my_sum(2, 3))
+print("The result is", result)
+```
+Output:
+```
+The result is 2
+```
+> In this example, the two function calls of `my_sum` returns two values, each being an argument for the function `difference`.
+
+#### Difference Between Return and Print
+There is a difference between returning a value versus printing a value inside a function. Take the following code for example:
+```
+def max1(a, b):
+    if a > b:
+        return a
+    else:
+        return b
+
+def max2(a, b):
+    if a > b:
+        print(a)
+    else:
+        print(b)
+
+result = max1(3, 5)
+print(result)
+
+max2(7, 2)
+```
+> Both functions `max1` and `max2` essentially do the same thing, just in different ways. `max1` returns a value, which is then printed by a command outside of the function. `max2` directly prints the value from within the function without returning any value.
+> 
+> Generally, it is better to use functions with return values since it is more versatile and allows for those return values to be used elsewhere and by other functions.
+
+#### The Type of the Argument
+The types of arguments we have seen so far are:
+- integer
+- float numbers
+- strings
+- Boolean values
+
+A function can take any of these data types as an argument. When giving arguments to a function, it will run correctly if the parameters are the right type. Giving the wrong type of argument to a function may cause it to be unable to execute properly or even at all. 
+
+To make sure a function receives the right type of argument, a *type hint* can be used to indicate what type of argument should be expected:
+```
+def print_many_times(message : str, times : int):
+    while times > 0:
+        print(message)
+        times -= 1
+```
+> In this function, the arguments include a small extra portion which shows the expected argument type. The ` : str` after the `message` argument shows that message should be a string type.
+
+The return type can also be indicated/hinted when defining the function. It can be done as shown:
+```
+def ask_for_name() -> str:
+    name = input("Mikä on nimesi? ")
+    return name
+```
+> The ` -> str` portion of the function header hints that the return value will be a string.
+
+### Lists
+So far, we've used variables to store data. But things get a bit clustered when too many variables need to be tracked and maintained.
+
+Another method of storing data is by using a *list*. A list is a collection of values which is accessed via a single variable name. The contents of the list, which are referred to as the list's *elements* or *items*, are surrounded by brackets.
+
+Creating a new, empty list can be done by:
+```
+my_list = []
+```
+and creating a list with items, in this case five items, can be done by:
+```
+my_list = [7, 2, 2, 5, 2]
+```
+
+#### Accessing Items in a List
+Accessing items in a list can be done using an index, just like taking characters from a string. The first item has the index of 0, meaning the index is the order of the item minus 1. 
+
+By placing the index inside brackets, you can access that certain item.
+```
+my_list = [7, 2, 2, 5, 2]
+
+print(my_list[0])
+print(my_list[1])
+print(my_list[3])
+
+print("The sum of the first two items:", my_list[0] + my_list[1])
+```
+Output:
+```
+7
+2
+5
+The sum of the first two items: 9
+```
+To print the whole list, print the list with no bracket and index.
+```
+print(my_list)
+```
+
+With lists, the contents can be changed, even individual elements can be changed to something else. 
+```
+my_list = [7, 2, 2, 5, 2]
+print(my_list)
+my_list[1] = 3
+print(my_list)
+```
+```
+[7, 2, 2, 5, 2]
+[7, 3, 2, 5, 2]
+```
+
+To find the number of items in a list, the `len` function can be used:
+```
+my_list = [7, 2, 2, 5, 2]
+print(len(my_list))
+```
+```
+5
+```
+
+#### Adding Items to a List
+Using the `append` method adds items to the end of a list. For example:
+```
+numbers = []
+numbers.append(5)
+numbers.append(10)
+numbers.append(3)
+print(numbers)
+```
+```
+[5, 10, 3]
+```
+
+#### Adding to a Specific Location
+You can add an item into a specific location without removing any other items with the `insert` method. The way this method works is by placing the new item into the given position while moving all items at the given position and after down one position, or up one index. An example of this is:
+```
+# insert(index, value)
+
+mylist = [1, 2, 3, 4, 5]
+print(mylist)
+mylist.insert(2, 6)
+print(mylist)
+```
+```
+[1, 2, 3, 4, 5]
+[1, 2, 6, 3, 4, 5]
+```
+
+#### Removing Items From a List
+There are two different methods that can remove items from the list:
+- if the `index` of the item is known, the `pop` method should be used
+- if the `contents` of the item are known, the `remove` method should be used
+
+The `pop` method takes the index of the item to be removed as its argument.
+```
+mylist = [1, 2, 3]
+print(mylist)
+mylist.remove(1)
+print(mylist)
+```
+```
+[1, 2, 3]
+[1, 3]
+```
+> Once this method removes an item, the other items in the list with a larger index drop to fill in the gap. 
+> 
+> On top of that, the `pop` method removes AND returns the value that was just removed.
+
+The `remove` method takes the value of the item itself as the argument, and then removes that from the list.
+```
+my_list = [1, 2, 3, 4, 5, 6, 2]
+
+my_list.remove(2)
+print(my_list)
+my_list.remove(5)
+print(my_list)
+```
+```
+[1, 3, 4, 5, 6, 2]
+[1, 3, 4, 6, 2]
+```
+> This method removes the *first* occurrence of the value in the list. 
+
+If the specified item is not in the list, the `remove` method causes an error. The `in` operator, the same one used with strings, can check whether a certain item is in a list:
+```
+my_list = [1, 3, 4]
+
+if 1 in my_list:
+    print("The list contains item 1")
+
+if 2 in my_list:
+    print("The list contains item 2")
+```
+```
+The list contains item 1
+```
+
+#### Sorting Lists
+The method `sort` rearranges the contents of a list from least to greatest.
+```
+my_list = [2,5,1,2,4]
+my_list.sort()
+print(my_list)
+```
+```
+[1, 2, 2, 4, 5]
+```
+
+This method changes the original list. So, if the previous list is still needed, the `sorted` function can be used to return a sorted list:
+```
+my_list = [2,5,1,2,4]
+print(sorted(my_list))
+```
+```
+[1, 2, 2, 4, 5]
+```
+
+> Sort VS Sorted
+> 
+> The `sort` method sorts the list itself, while the `sorted` function returns a sorted list without altering the original list.
+
+
+#### Maximum, Minimum, and Sum
+The functions `max` and `min` return the greatest and smallest items in a list, respectively. The function `sum` gives the sum of all the items in a list.
+```
+my_list = [5, 2, 3, 1, 4]
+
+greatest = max(my_list)
+smallest = min(my_list)
+list_sum = sum(my_list)
+
+print("Smallest:", smallest)
+print("Greatest:", greatest)
+print("Sum:", list_sum)
+```
+```
+Smallest: 1
+Greatest: 5
+Sum: 15
+```
+#### Methods VS Functions
+**Methods** are one way to process lists. For example, the `append` and `sort` methods that are used on the list. To use methods, the dot operator and the method name are placed after the list that the method will be used on.
+
+**Functions** are another way to process lists. They take lists as an argument and returns a result, just like the functions `len` and `sorted`.
+
+#### A List as an Argument or a Return Value
+When defining a new function, it is possible to set the argument type and/or return type as a list. For example, the following function takes in a list and returns the median value:
+```
+def median(my_list: list):
+    ordered = sorted(my_list)
+    list_centre = len(ordered) // 2
+    return ordered[list_centre]
+```
+> This function sorts the given list and then returns the middle item. The `//` operator is used here since lists with an odd number of items would return a float and not an integer if the middle number was attempted to be found using the `/` operator.
+
+An example of the function working is:
+```
+shoe_sizes = [45, 44, 36, 39, 40]
+print("The median of the shoe sizes is", median(shoe_sizes))
+
+ages = [1, 56, 34, 22, 5, 77, 5]
+print("The median of the ages is", median(ages))
+```
+```
+The median of the shoe sizes is 40
+The median of the ages is 22
+```
+
+A function could also return a list. In the following example, the function returns a list after taking user inputs until a 0 is inputted:
+```
+def input_numbers():
+    numbers = []
+    while True:
+        user_input = input("Please type in an integer, leave empty to exit: ")
+        if len(user_input) == 0:
+            break
+        numbers.append(int(user_input))
+    return numbers
+```
+An example usage of this function:
+```
+numbers = input_numbers()
+
+print("The greatest number is", max(numbers))
+print("The median of the numbers is", median(numbers))
+```
+```
+Please type in an integer, leave empty to exit: 5
+Please type in an integer, leave empty to exit: -22
+Please type in an integer, leave empty to exit: 4
+Please type in an integer, leave empty to exit: 35
+Please type in an integer, leave empty to exit: 1
+Please type in an integer, leave empty to exit:
+The greatest number is 35
+The median of the numbers is 4
+```
+> This example shows how functions can be useful: they make code more readable and compact in its own way.
+
+These are only a few things that can be done with lists. The Python  documentation contains many more methods and functions that can be done with lists.
 
 ## Part 5
 
